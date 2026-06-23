@@ -30,11 +30,16 @@ Jeśli reguły są niepełne albo sprzeczne, stosuj najbardziej konkretną zasad
 
 - `.github/` - workflowy CI/CD, szablony i instrukcje agentów.
 - `docs/` - obowiązujące konwencje i dokumentacja projektu.
-- `src/compton-scattering-plane-angle-extractor/` - kod źródłowy Python (moduły i CLI).
+- `src/compton_scattering_plane_angle_extractor/` - kod źródłowy Python (moduły i CLI).
   - `__init__.py` - inicjalizacja pakietu.
-  - `angle_calculator.py` - główne obliczenia kątów.
-  - `data_loader.py` - wczytywanie danych CSV/HDF5.
-  - `output_writer.py` - zapis wyników.
+  - `__main__.py` - punkt wejścia dla `python -m ...`.
+  - `geometry/` - obliczenia geometryczne (`vectors.py`, `scattering.py`, `plane.py`).
+  - `io/` - wczytywanie i zapis danych (`readers.py`, `writers.py`, `formats.py`).
+  - `column_spec.py` - parsowanie specyfikacji kolumn wektorów pędu.
+  - `units.py` - konwersje jednostek i normalizacja kątów.
+  - `config.py` - konfiguracja uruchomienia (RunConfig).
+  - `pipeline.py` - potok obliczeń (wczytanie → kąty → zapis).
+  - `logging_setup.py` - konfiguracja logowania.
   - `cli.py` - interfejs linii komend.
 - `tests/` - testy aplikacji.
   - `unit/` - testy jednostkowe (test_<module>.py).
@@ -49,7 +54,7 @@ Jeśli reguły są niepełne albo sprzeczne, stosuj najbardziej konkretną zasad
 Używaj komend opisanych w README:
 
 - Instalacja zależności: `uv sync`.
-- Uruchamianie aplikacji: `python -m compton-scattering-plane-angle-extractor.cli ...`.
+- Uruchamianie aplikacji: `python -m compton_scattering_plane_angle_extractor ...`.
 - Testy: `uv run pytest`.
 - Linting i formatowanie: `uv run ruff check` / `uv run ruff format`.
 - Type checking: `uv run mypy src/`.
@@ -61,12 +66,12 @@ Nie uruchamiaj komend przeznaczonych wyłącznie dla człowieka zespołu:
 
 ## Interfejs CLI
 
-Główny skrypt: `python -m compton-scattering-plane-angle-extractor.cli`
+Główny skrypt: `python -m compton_scattering_plane_angle_extractor`
 
 Wymagane argumenty:
 
-- `--input-file` lub `-i`: ścieżka do pliku CSV/HDF5 z danymi rozpraszania.
-- `--output-dir` lub `-o`: ścieżka do folderu dla plików wyjściowych.
+- `--input-file-path`: ścieżka do pliku CSV/HDF5 z danymi rozpraszania.
+- `--output-dir-path`: ścieżka do folderu dla plików wyjściowych.
 - `--first-scattering-initial-direction`: kolumny wejścia (x,y,z) dla pędu przed rozproszeniem w płaszczyźnie A.
 - `--first-scattering-final-direction`: kolumny wejścia (x,y,z) dla pędu po rozproszeniu w płaszczyźnie A.
 - `--second-scattering-initial-direction`: kolumny wejścia (x,y,z) dla pędu przed rozproszeniem w płaszczyźnie B.
@@ -103,7 +108,7 @@ Zawsze zachowuj tę strukturę i semantykę.
 
 - Używaj Python 3.11+, bez żadnych starszych wersji.
 - Kod ma kompilować się i przechodzić: `uv run ruff check`, `uv run ruff format --check`, `uv run mypy src/`.
-- Stosuj wcięcie 4 spacje, maksymalna długość linii 88 znaków (Ruff default).
+- Stosuj wcięcie 4 spacje, maksymalna długość linii 100 znaków (konfiguracja Ruff).
 - Typ hints są obowiązkowe dla wszystkich funkcji publicznych.
 - Nazwy funkcji i zmiennych: `snake_case`, klasy: `PascalCase`, stałe: `UPPERCASE_WITH_UNDERSCORES`.
 - Wszystkie publiczne moduły, klasy, funkcje muszą mieć docstring w stylu NumPy.
