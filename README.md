@@ -30,7 +30,7 @@ Azymutalny kąt rozpraszania $\varphi\in (-\pi,\pi]$ wyznaczany jest z:
 $$
 \boxed{
 \varphi =
-\operatorname{atan2}
+\text{atan2}
 \left[
 \hat{k}\cdot \hat{e}_2,
 \hat{k}\cdot \hat{e}_1
@@ -59,7 +59,7 @@ $$
 \boxed{
 \hat{\mathbf a} =
 \begin{cases}
-(0,0,1), & \text{gdy } |\hat{k_0}_z| < 0.9,\\[4pt]
+(0,0,1), & \text{gdy } |\hat{k_0}_z| < 0.9,\\
 (1,0,0), & \text{gdy } |\hat{k_0}_z| \ge 0.9.
 \end{cases}
 }
@@ -71,7 +71,7 @@ $$
 \boxed{
 \varphi =
 \begin{cases}
-\varphi, & \text{gdy } \varphi  \ge 0,\\[4pt]
+\varphi, & \text{gdy } \varphi  \ge 0,\\
 \varphi+2\pi, & \text{gdy } \varphi < 0.
 \end{cases}
 }
