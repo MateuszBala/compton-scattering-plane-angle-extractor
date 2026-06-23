@@ -81,7 +81,7 @@ Kąt pomiędzy płaszczyznami rozpraszania $\phi\in[0,\pi]$:
 
 $$
 \boxed{
-\phi = \hat{n}_a\times\hat{n}_b
+\phi = \arccos\left(\hat{n}_a\cdot\hat{n}_b\right)
 }
 $$
 
