@@ -36,8 +36,10 @@ function check_python() {
     echo "Wskaż go zmienną PYTHON, np. PYTHON=python3.11 bash scripts/install.sh." >&2
     exit 1
   fi
-  if ! "${PYTHON_BIN}" -c 'import sys; raise SystemExit(0 if sys.version_info[:2] >= (3, 11) else 1)'; then
-    echo "Błąd: wymagany Python >= 3.11 (znaleziono: $("${PYTHON_BIN}" -V 2>&1))." >&2
+  if ! "${PYTHON_BIN}" -c 'import sys; sys.exit(sys.version_info[:2] < (3, 11))'; then
+    local version
+    version="$("${PYTHON_BIN}" -V 2>&1)"
+    echo "Błąd: wymagany Python >= 3.11 (znaleziono: ${version})." >&2
     exit 1
   fi
 }
@@ -47,6 +49,7 @@ function check_python() {
 function main() {
   check_python
   echo "Tworzę środowisko wirtualne w: ${VENV_DIR}"
+  mkdir -p "$(dirname "${VENV_DIR}")"
   "${PYTHON_BIN}" -m venv "${VENV_DIR}"
   "${VENV_DIR}/bin/python" -m pip install --upgrade pip
   "${VENV_DIR}/bin/python" -m pip install "${REPO_ROOT}"

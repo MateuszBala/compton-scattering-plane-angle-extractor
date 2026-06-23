@@ -40,8 +40,8 @@ VENV_DIR="${CSPAE_VENV_DIR:-${CSPAE_HOME:-${HOME}/.local/share/cspae}/venv}"
 function can_import() {
   local PARAM_PYTHON="$1"
   "${PARAM_PYTHON}" -c \
-    "import importlib.util, sys; sys.exit(0 if importlib.util.find_spec('${PYTHON_MODULE}') else 1)" \
-    >/dev/null 2>&1
+    'import importlib.util, sys; sys.exit(importlib.util.find_spec(sys.argv[1]) is None)' \
+    "${PYTHON_MODULE}" >/dev/null 2>&1
 }
 
 # Wybiera środowisko uruchomieniowe i wykonuje interfejs CLI z argumentami.
@@ -52,7 +52,7 @@ function main() {
   if [[ -n "${CSPAE_PYTHON:-}" ]]; then
     exec "${CSPAE_PYTHON}" -m "${PYTHON_MODULE}" "$@"
   fi
-  if [[ -x "${VENV_DIR}/bin/python" ]]; then
+  if [[ -x "${VENV_DIR}/bin/python" ]] && can_import "${VENV_DIR}/bin/python"; then
     exec "${VENV_DIR}/bin/python" -m "${PYTHON_MODULE}" "$@"
   fi
   if command -v python3 >/dev/null 2>&1 && can_import python3; then
