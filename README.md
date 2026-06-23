@@ -154,14 +154,14 @@ bash scripts/extractor.sh \
 
 | Komenda | Obowiązkowa                  | Opis |
 | ---     | ---                          | ---  |
-| `--input-file-path`                    | Tak/Nie     | ścieżka do pliku wejściowego CSV/HDF5  |
-| `--output-dir-path`                    | Tak/Nie     | ścieżka do folderu gdzie zapisać dane |
-| `--first-scattering-initial-direction` | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu przed rozproszeniem w płaszczyźnie A  |
-| `--first-scattering-final-direction`   | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu po rozproszeniu w płaszczyźnie A  |
-| `--second-scattering-initial-direction`| Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu przed rozproszeniem w płaszczyźnie B  |
-| `--second-scattering-final-direction`  | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu po rozproszeniu w płaszczyźnie B  |
-| `--output-file-name`                   | Tak/Nie     | nazwa pliku wyjściowego, domyślna nazwa to `compton-scattering-plane-angles.<format>` gdzie format jest taki sam jak plik wejściowy  |
-| `--output-format`                      | Tak/Nie     | format pliku wyjściowego: csv lub hdf5  |
+| `--input-file-path`                    | Tak         | ścieżka do pliku wejściowego CSV/HDF5  |
+| `--output-dir-path`                    | Tak         | ścieżka do folderu gdzie zapisać dane |
+| `--first-scattering-initial-direction` | Tak         | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu przed rozproszeniem w płaszczyźnie A  |
+| `--first-scattering-final-direction`   | Tak         | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu po rozproszeniu w płaszczyźnie A  |
+| `--second-scattering-initial-direction`| Tak         | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu przed rozproszeniem w płaszczyźnie B  |
+| `--second-scattering-final-direction`  | Tak         | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu po rozproszeniu w płaszczyźnie B  |
+| `--output-file-name`                   | Nie         | nazwa pliku wyjściowego, domyślna nazwa to `compton-scattering-plane-angles.<format>` gdzie format jest taki sam jak plik wejściowy  |
+| `--output-format`                      | Nie         | format pliku wyjściowego: csv lub hdf5  |
 | `--rad2deg`                            | Nie         | jeśli flaga jest ustawiona to wartości kątów w kolumnach pliku wyjściowego są wyrażone w stopniach; domyślnie kąty są wyrażone w radianach |
 
 
