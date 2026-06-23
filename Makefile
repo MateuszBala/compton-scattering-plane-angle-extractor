@@ -1,3 +1,49 @@
+# FILE: Makefile
+# ABOUT: Zadania pomocnicze projektu: instalacja, walidacja oraz zarządzanie
+#        worktree dla gałęzi roboczych tworzonych od develop.
+# USAGE:
+#   make init | install | test | lint | format | typecheck | check
+#   make worktree BRANCH_NAME=feature/opis
+#   make switch-to-worktree BRANCH_NAME=feature/opis
+
+SHELL := /bin/bash
+
+# Katalog nadrzędny dla worktree oraz katalog na pliki blokad.
+WORKTREE_ROOT ?= ../worktrees
+WORKTREE_LOCKS_DIR ?= .tmp/worktree-locks
+
+.PHONY: init install test lint format typecheck check worktree switch-to-worktree
+
+# Instaluje zależności i tworzy środowisko wirtualne (uv).
+init:
+	uv sync
+
+# Alias instalacji zależności.
+install: init
+
+# Uruchamia pełny zestaw testów.
+test:
+	uv run pytest
+
+# Sprawdza styl kodu (lint).
+lint:
+	uv run ruff check
+
+# Formatuje kod.
+format:
+	uv run ruff format
+
+# Statyczne sprawdzanie typów.
+typecheck:
+	uv run mypy src/
+
+# Pełna walidacja lokalna: lint, sprawdzenie formatowania, typy, testy.
+check:
+	uv run ruff check
+	uv run ruff format --check
+	uv run mypy src/
+	uv run pytest
+
 # Tworzy worktree dla podanej gałęzi, jeśli jeszcze nie istnieje.
 worktree:
 	@if [[ -z "$(BRANCH_NAME)" ]]; then \
