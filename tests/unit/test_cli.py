@@ -7,6 +7,7 @@ import pandas as pd
 import pytest
 
 from compton_scattering_plane_angle_extractor import cli, pipeline
+from compton_scattering_plane_angle_extractor.io.readers import load_data
 
 
 def _base_argv(input_path: Path, output_dir: Path) -> list[str]:
@@ -102,3 +103,52 @@ def test_main_returns_one_for_invalid_column_spec(
 
     # Assert
     assert exit_code == 1
+
+
+def test_main_writes_requested_output_format(
+    tmp_path: Path, scattering_frame: pd.DataFrame
+) -> None:
+    """--output-format hdf5 dla wejścia CSV daje czytelny plik HDF5."""
+    # Arrange
+    input_path = tmp_path / "in.csv"
+    scattering_frame.to_csv(input_path, index=False)
+    output_dir = tmp_path / "out"
+    argv = [*_base_argv(input_path, output_dir), "--output-format", "hdf5"]
+
+    # Act
+    exit_code = cli.main(argv)
+
+    # Assert
+    assert exit_code == 0
+    output_path = output_dir / "compton-scattering-plane-angles.hdf5"
+    reloaded = load_data(output_path)
+    np.testing.assert_allclose(reloaded["thetaA"].to_numpy(), [np.pi / 2], atol=1e-9)
+
+
+def test_main_accepts_uppercase_output_format(
+    tmp_path: Path, scattering_frame: pd.DataFrame
+) -> None:
+    """--output-format HDF5 jest akceptowane niezależnie od wielkości liter."""
+    # Arrange
+    input_path = tmp_path / "in.csv"
+    scattering_frame.to_csv(input_path, index=False)
+    output_dir = tmp_path / "out"
+    argv = [*_base_argv(input_path, output_dir), "--output-format", "HDF5"]
+
+    # Act
+    exit_code = cli.main(argv)
+
+    # Assert
+    assert exit_code == 0
+    assert (output_dir / "compton-scattering-plane-angles.hdf5").exists()
+
+
+def test_parser_error_message_is_polish(capsys: pytest.CaptureFixture[str]) -> None:
+    """Błąd parsowania argumentów jest komunikowany po polsku."""
+    # Arrange
+    parser = cli.build_parser()
+
+    # Act / Assert
+    with pytest.raises(SystemExit):
+        parser.parse_args([])
+    assert "błąd:" in capsys.readouterr().err

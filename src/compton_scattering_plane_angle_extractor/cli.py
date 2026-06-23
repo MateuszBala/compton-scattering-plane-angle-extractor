@@ -13,7 +13,9 @@ main(argv: list[str] | None = None) -> int
 """
 
 import argparse
+import sys
 from pathlib import Path
+from typing import NoReturn
 
 from .column_spec import parse_column_spec
 from .config import RunConfig
@@ -25,6 +27,20 @@ from .pipeline import run
 PROG_NAME = "compton-scattering-plane-angle-extractor"
 
 
+class _PolishArgumentParser(argparse.ArgumentParser):
+    """Parser argumentów emitujący komunikaty błędów po polsku."""
+
+    def error(self, message: str) -> NoReturn:
+        """Wypisuje sposób użycia i polski komunikat błędu, kończąc kodem 2."""
+        self.print_usage(sys.stderr)
+        self.exit(2, f"{self.prog}: błąd: {message}\n")
+
+
+def _normalized_format(value: str) -> str:
+    """Normalizuje wartość ``--output-format`` (usuwa spacje, małe litery)."""
+    return value.strip().lower()
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Buduje parser argumentów wiersza poleceń.
 
@@ -33,7 +49,7 @@ def build_parser() -> argparse.ArgumentParser:
     argparse.ArgumentParser
         Skonfigurowany parser z wszystkimi flagami narzędzia.
     """
-    parser = argparse.ArgumentParser(
+    parser = _PolishArgumentParser(
         prog=PROG_NAME,
         description=(
             "Wylicza kąty rozpraszania w płaszczyznach A i B oraz kąt pomiędzy "
@@ -82,8 +98,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output-format",
         default=None,
+        type=_normalized_format,
         choices=list(SUPPORTED_FORMATS),
-        help="Format pliku wyjściowego. Domyślnie taki sam jak plik wejściowy.",
+        help="Format pliku wyjściowego (csv/hdf5). Domyślnie taki sam jak wejście.",
     )
     parser.add_argument(
         "--rad2deg",
