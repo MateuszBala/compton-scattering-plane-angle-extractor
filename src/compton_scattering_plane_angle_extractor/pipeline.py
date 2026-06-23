@@ -103,19 +103,46 @@ def run(config: RunConfig) -> Path:
 def _resolve_output(config: RunConfig) -> tuple[Path, str]:
     """Wyznacza ścieżkę i format pliku wyjściowego.
 
-    Format wyjścia to jawnie podany ``config.output_format`` albo — gdy go brak —
-    format pliku wejściowego. Nazwa pliku to ``config.output_file_name`` albo
-    nazwa domyślna ``compton-scattering-plane-angles.<format>``.
+    Nazwa pliku to ``config.output_file_name`` albo nazwa domyślna
+    ``compton-scattering-plane-angles.<format>``. Format jest ustalany przez
+    :func:`_resolve_output_format`.
     """
-    input_format = formats.infer_format(config.input_path)
-    if config.output_format is not None:
-        output_format = formats.normalize_format(config.output_format)
-    else:
-        output_format = input_format
-
+    output_format = _resolve_output_format(config)
     if config.output_file_name is not None:
         file_name = config.output_file_name
     else:
         file_name = f"{DEFAULT_OUTPUT_STEM}.{output_format}"
-
     return config.output_dir / file_name, output_format
+
+
+def _resolve_output_format(config: RunConfig) -> str:
+    """Ustala format pliku wyjściowego.
+
+    Kolejność priorytetów:
+
+    1. jawny ``config.output_format`` (walidowany; przy podanej nazwie pliku
+       sprawdzana jest zgodność rozszerzenia, jeśli jest rozpoznawalne),
+    2. rozszerzenie ``config.output_file_name`` (jeśli rozpoznawalne),
+    3. format pliku wejściowego.
+
+    Raises
+    ------
+    ValueError
+        Gdy jawny format nie zgadza się z rozszerzeniem nazwy pliku wyjściowego.
+    """
+    name = config.output_file_name
+    name_format = formats.format_from_extension(Path(name)) if name is not None else None
+
+    if config.output_format is not None:
+        explicit = formats.normalize_format(config.output_format)
+        if name_format is not None and name_format != explicit:
+            raise ValueError(
+                "Rozszerzenie nazwy pliku wyjściowego nie zgadza się z formatem "
+                f'"{explicit}": "{name}".'
+            )
+        return explicit
+
+    if name_format is not None:
+        return name_format
+
+    return formats.infer_format(config.input_path)

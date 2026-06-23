@@ -63,3 +63,28 @@ def test_run_honours_output_format_override(
     assert output_path.suffix == ".hdf5"
     reloaded = load_data(output_path)
     np.testing.assert_allclose(reloaded["planeAngle"].to_numpy(), [np.pi / 2], atol=1e-9)
+
+
+def test_run_with_hdf5_file_name_writes_reloadable_file(
+    tmp_path: Path,
+    scattering_frame: pd.DataFrame,
+    scattering_columns: dict[str, ColumnTriplet],
+) -> None:
+    """Nazwa pliku z rozszerzeniem .hdf5 (bez jawnego formatu) daje plik HDF5."""
+    # Arrange: wejście CSV, nazwa wyjścia z rozszerzeniem .hdf5, brak output_format
+    input_path = tmp_path / "in.csv"
+    scattering_frame.to_csv(input_path, index=False)
+    config = RunConfig(
+        input_path=input_path,
+        output_dir=tmp_path / "out",
+        output_file_name="wynik.hdf5",
+        **scattering_columns,
+    )
+
+    # Act
+    output_path = pipeline.run(config)
+
+    # Assert: plik daje się ponownie wczytać zgodnie z rozszerzeniem (format HDF5)
+    assert output_path.name == "wynik.hdf5"
+    reloaded = load_data(output_path)
+    np.testing.assert_allclose(reloaded["thetaA"].to_numpy(), [np.pi / 2], atol=1e-9)

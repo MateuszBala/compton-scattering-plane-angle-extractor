@@ -5,6 +5,8 @@ Obsługiwane formaty to CSV oraz HDF5. Format można wskazać jawnie (np. z opcj
 
 Funkcje publiczne
 -----------------
+format_from_extension(path: Path) -> str | None
+    Zwraca format dla rozszerzenia ścieżki lub ``None``, gdy nieznane.
 infer_format(path: Path) -> str
     Rozpoznaje format na podstawie rozszerzenia ścieżki.
 normalize_format(value: str) -> str
@@ -30,6 +32,23 @@ _EXTENSION_TO_FORMAT: Final[dict[str, str]] = {
 }
 
 
+def format_from_extension(path: Path) -> str | None:
+    """Zwraca format dla rozszerzenia ścieżki lub ``None``, gdy nieznane.
+
+    Parameters
+    ----------
+    path : Path
+        Ścieżka, której rozszerzenie jest sprawdzane.
+
+    Returns
+    -------
+    str | None
+        Identyfikator formatu (:data:`CSV` lub :data:`HDF5`) albo ``None``, gdy
+        rozszerzenie nie odpowiada żadnemu obsługiwanemu formatowi.
+    """
+    return _EXTENSION_TO_FORMAT.get(path.suffix.lower())
+
+
 def infer_format(path: Path) -> str:
     """Rozpoznaje format pliku na podstawie rozszerzenia.
 
@@ -48,14 +67,14 @@ def infer_format(path: Path) -> str:
     ValueError
         Gdy rozszerzenie nie odpowiada żadnemu obsługiwanemu formatowi.
     """
-    suffix = path.suffix.lower()
-    if suffix not in _EXTENSION_TO_FORMAT:
+    resolved = format_from_extension(path)
+    if resolved is None:
         supported = ", ".join(sorted(_EXTENSION_TO_FORMAT))
         raise ValueError(
             f'Nie można rozpoznać formatu po rozszerzeniu "{path.suffix}". '
             f"Obsługiwane rozszerzenia: {supported}."
         )
-    return _EXTENSION_TO_FORMAT[suffix]
+    return resolved
 
 
 def normalize_format(value: str) -> str:

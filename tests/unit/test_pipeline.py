@@ -4,6 +4,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from compton_scattering_plane_angle_extractor import pipeline
 from compton_scattering_plane_angle_extractor.column_spec import ColumnTriplet
@@ -110,3 +111,41 @@ def test_resolve_output_uses_custom_file_name(
 
     # Assert
     assert path == Path("out/wynik.csv")
+
+
+def test_resolve_output_derives_format_from_file_name_extension(
+    scattering_columns: dict[str, ColumnTriplet],
+) -> None:
+    """Bez jawnego formatu format wynika z rozszerzenia nazwy pliku, nie z wejścia."""
+    # Arrange: wejście CSV, ale nazwa pliku wyjściowego z rozszerzeniem .hdf5
+    config = RunConfig(
+        input_path=Path("dane/in.csv"),
+        output_dir=Path("out"),
+        output_file_name="wynik.hdf5",
+        **scattering_columns,
+    )
+
+    # Act
+    path, fmt = pipeline._resolve_output(config)
+
+    # Assert
+    assert fmt == "hdf5"
+    assert path == Path("out/wynik.hdf5")
+
+
+def test_resolve_output_raises_on_format_extension_mismatch(
+    scattering_columns: dict[str, ColumnTriplet],
+) -> None:
+    """Sprzeczność jawnego formatu z rozszerzeniem nazwy pliku zgłasza ValueError."""
+    # Arrange
+    config = RunConfig(
+        input_path=Path("dane/in.csv"),
+        output_dir=Path("out"),
+        output_file_name="wynik.hdf5",
+        output_format="csv",
+        **scattering_columns,
+    )
+
+    # Act / Assert
+    with pytest.raises(ValueError):
+        pipeline._resolve_output(config)
