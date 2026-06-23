@@ -1,7 +1,7 @@
 # compton-scattering-plane-angle-extractor
 
 [![CI](https://github.com/MateuszBala/compton-scattering-plane-angle-extractor/actions/workflows/ci.yaml/badge.svg)](https://github.com/MateuszBala/compton-scattering-plane-angle-extractor/actions/workflows/ci.yaml)
-[![Wersja](https://img.shields.io/badge/wersja-0.0.0-informational)](https://github.com/MateuszBala/python-cspae/releases)
+[![Wersja](https://img.shields.io/badge/wersja-0.0.0-informational)](https://github.com/MateuszBala/compton-scattering-plane-angle-extractor/releases)
 [![Standard Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)]()
 [![Standard Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)]()
 [![Standard Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)]()
@@ -161,7 +161,7 @@ bash scripts/extractor.sh \
 | `--second-scattering-initial-direction`| Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu przed rozproszeniem w płaszczyźnie B  |
 | `--second-scattering-final-direction`  | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu po rozproszeniu w płaszczyźnie B  |
 | `--output-file-name`                   | Tak/Nie     | nazwa pliku wyjściowego, domyślna nazwa to `compton-scattering-plane-angles.<format>` gdzie format jest taki sam jak plik wejściowy  |
-| `--output-format`                      | Tak/Nie     | format pliku wyjściowego: CSF,HDF5  |
+| `--output-format`                      | Tak/Nie     | format pliku wyjściowego: csv lub hdf5  |
 | `--rad2deg`                            | Nie         | jeśli flaga jest ustawiona to wartości kątów w kolumnach pliku wyjściowego są wyrażone w stopniach; domyślnie kąty są wyrażone w radianach |
 
 
