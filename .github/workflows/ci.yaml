@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  python:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - name: Pobranie repozytorium
+        uses: actions/checkout@v4
+
+      - name: Instalacja uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Synchronizacja zależności
+        run: uv sync
+
+      - name: Lint (ruff check)
+        run: uv run ruff check
+
+      - name: Sprawdzenie formatowania (ruff format)
+        run: uv run ruff format --check
+
+      - name: Sprawdzanie typów (mypy)
+        run: uv run mypy src/
+
+      - name: Testy (pytest)
+        run: uv run pytest
+
+  shell:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobranie repozytorium
+        uses: actions/checkout@v4
+
+      - name: Walidacja skryptów bash
+        run: shellcheck scripts/*.sh
