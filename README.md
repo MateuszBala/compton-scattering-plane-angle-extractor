@@ -112,7 +112,7 @@ make install
 ### Użycia
 
 ```bash
-bash scripts/extract.sh \
+bash scripts/extractor.sh \
   --input-file-path <path-to-file> \
   --output-dir-path <path-to-dir> \
   --first-scattering-initial-direction x,y,z \

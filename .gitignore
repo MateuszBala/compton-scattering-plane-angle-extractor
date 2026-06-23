@@ -11,5 +11,6 @@ htmlcov/
 venv/
 .env
 .tmp/
+examples/output/
 uv.lock
 .claude/settings.local.json
