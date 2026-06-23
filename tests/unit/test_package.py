@@ -9,4 +9,4 @@ def test_package_exposes_version() -> None:
     version = pkg.__version__
 
     # Assert
-    assert version == "0.0.0"
+    assert version == "1.0.0"
