@@ -101,15 +101,38 @@ $$
 
 ## Szybki start
 
+### Instalacja (użytkownik końcowy)
 
-### Instalacja
+Narzędzie instaluje się w izolowanym środowisku wirtualnym Pythona. Wymagany jest
+tylko interpreter Pythona w wersji `>= 3.11` — instalacja nie modyfikuje globalnego
+Pythona ani jego pakietów i nie wymaga narzędzia `uv`.
+
+```bash
+bash scripts/install.sh
+```
+
+Konfiguracja zmiennymi środowiskowymi (opcjonalnie):
+
+- `PYTHON` — interpreter użyty do utworzenia środowiska (domyślnie `python3`),
+  np. `PYTHON=python3.11 bash scripts/install.sh`.
+- `CSPAE_VENV_DIR` — katalog środowiska wirtualnego (domyślnie
+  `${CSPAE_HOME:-$HOME/.local/share/cspae}/venv`).
+
+Na klastrze obliczeniowym (HPC) wykonaj instalację na węźle dostępowym (z dostępem
+do internetu), a uruchamiaj narzędzie na węźle obliczeniowym, wskazując ten sam
+katalog `CSPAE_VENV_DIR` (współdzielony system plików). Skrypt uruchomieniowy nie
+wymaga aktywacji środowiska.
+
+### Instalacja (developer)
+
+W repozytorium do pracy nad kodem używamy menedżera `uv`:
 
 ```bash
 make init
 make install
 ```
 
-### Użycia
+### Użycie
 
 ```bash
 bash scripts/extractor.sh \
