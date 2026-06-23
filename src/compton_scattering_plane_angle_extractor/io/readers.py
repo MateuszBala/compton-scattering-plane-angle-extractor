@@ -41,13 +41,14 @@ def load_data(path: str | Path, fmt: str | None = None) -> pd.DataFrame:
     Raises
     ------
     FileNotFoundError
-        Gdy plik nie istnieje.
+        Gdy ścieżka nie wskazuje na istniejący plik (nie istnieje lub jest
+        katalogiem).
     ValueError
         Gdy format jest nieobsługiwany lub nie można go rozpoznać.
     """
     file_path = Path(path)
-    if not file_path.exists():
-        raise FileNotFoundError(f"Plik wejściowy nie istnieje: {file_path}.")
+    if not file_path.is_file():
+        raise FileNotFoundError(f"Ścieżka wejściowa nie wskazuje na istniejący plik: {file_path}.")
     resolved = normalize_format(fmt) if fmt is not None else infer_format(file_path)
     if resolved == CSV:
         return _load_csv(file_path)

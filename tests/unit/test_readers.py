@@ -62,6 +62,17 @@ def test_load_data_raises_for_missing_file(tmp_path: Path) -> None:
         readers.load_data(path)
 
 
+def test_load_data_raises_for_directory_path(tmp_path: Path) -> None:
+    """Ścieżka wskazująca na katalog zgłasza FileNotFoundError, nie błąd pandas/h5py."""
+    # Arrange
+    directory = tmp_path / "katalog.csv"
+    directory.mkdir()
+
+    # Act / Assert
+    with pytest.raises(FileNotFoundError):
+        readers.load_data(directory)
+
+
 def test_extract_vectors_returns_array(sample_dataframe: pd.DataFrame) -> None:
     """Wyodrębnienie kolumn zwraca tablicę wektorów (N, 3)."""
     # Arrange
