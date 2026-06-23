@@ -1,10 +1,10 @@
 # compton-scattering-plane-angle-extractor
 
 [![Wersja](https://img.shields.io/badge/wersja-0.0.0-informational)](https://github.com/MateuszBala/python-cspae/releases)
-[![Standard Python](https://img.shields.io/badge/C%2B%2B-3.11-blue?logo=python&logoColor=white)]()
-[![Standard Python](https://img.shields.io/badge/C%2B%2B-3.12-blue?logo=python&logoColor=white)]()
-[![Standard Python](https://img.shields.io/badge/C%2B%2B-3.13-blue?logo=python&logoColor=white)]()
-[![Standard Python](https://img.shields.io/badge/C%2B%2B-3.14-blue?logo=python&logoColor=white)]()
+[![Standard Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)]()
+[![Standard Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)]()
+[![Standard Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)]()
+[![Standard Python](https://img.shields.io/badge/Python-3.14-blue?logo=python&logoColor=white)]()
 [![Licencja](https://img.shields.io/badge/licencja-GPL--3.0-brightgreen)](LICENSE)
 
 Maksymalnie prosty i przetestowane narzędzie do wyliczania kąta pomiędzy płaszczynami rozpraszania Comptonowskiego. Stworzone tylko po to by nie podważać wątku "czy jest to dobrze wyliczone"
@@ -152,10 +152,10 @@ bash scripts/extractor.sh \
 | ---     | ---                          | ---  |
 | `--input-file-path`                    | Tak/Nie     | ścieżka do pliku wejściowego CSV/HDF5  |
 | `--output-dir-path`                    | Tak/Nie     | ścieżka do folderu gdzie zapisać dane |
-| `--first-scattering-initial-direction` | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu przed rozrposzeniem w płaszczyźnie A  |
-| `--first-scattering-final-direction`   | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu po rozrposzeniu w płaszczyźnie A  |
-| `--second-scattering-initial-direction`| Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu przed rozrposzeniem w płaszczyźnie B  |
-| `-second-scattering-final-direction`   | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu po rozrposzeniu w płaszczyźnie B  |
+| `--first-scattering-initial-direction` | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu przed rozproszeniem w płaszczyźnie A  |
+| `--first-scattering-final-direction`   | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu po rozproszeniu w płaszczyźnie A  |
+| `--second-scattering-initial-direction`| Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu przed rozproszeniem w płaszczyźnie B  |
+| `--second-scattering-final-direction`  | Tak/Nie     | nazwy kolumn będących składowymi (X,Y,Z) kierunku pędu po rozproszeniu w płaszczyźnie B  |
 | `--output-file-name`                   | Tak/Nie     | nazwa pliku wyjściowego, domyślna nazwa to `compton-scattering-plane-angles.<format>` gdzie format jest taki sam jak plik wejściowy  |
 | `--output-format`                      | Tak/Nie     | format pliku wyjściowego: CSF,HDF5  |
 | `--rad2deg`                            | Nie         | jeśli flaga jest ustawiona to wartości kątów w kolumnach pliku wyjściowego są wyrażone w stopniach; domyślnie kąty są wyrażone w radianach |
@@ -182,14 +182,14 @@ Jeśli użytkownik nie ustawi formatu pliku wyjściowego za pomocą komendy `--o
 ## Struktura repozytorium
 
 ```
-simulator-one-photon-double-compton-scattering/
+compton-scattering-plane-angle-extractor/
 ├── .github/
+│   ├── workflows/
+│   │   └── ci.yaml
 │   ├── PULL_REQUEST_TEMPLATE.md
 │   ├── copilot-instructions.md
-│   ├── debugging-readme-template.md
 │   └── get_review.sh
 ├── docs/
-│   ├── imgs/
 │   ├── CODING_CONVENTIONS.md
 │   ├── COMMIT_CONVENTIONS.md
 │   ├── CONTRIBUTION.md
@@ -200,16 +200,28 @@ simulator-one-photon-double-compton-scattering/
 ├── examples/
 │   ├── data/
 │   ├── run_csv_file_analysis.sh
+│   ├── run_csv_file_analysis_extra_columns.sh
+│   ├── run_hdf5_file_analysis.sh
+│   ├── run_hdf5_file_analysis_extra_columns.sh
 │   └── README.md
 ├── scripts/
-│   ├── install.sh
-│   ├── run_tests.sh
 │   ├── extractor.sh
-│   └── README.md
+│   ├── install.sh
+│   └── run_tests.sh
 ├── src/
-│   └── compton-scattering-plane-angle-extractor/
+│   └── compton_scattering_plane_angle_extractor/
+│       ├── geometry/
+│       ├── io/
+│       ├── cli.py
+│       ├── config.py
+│       ├── column_spec.py
+│       ├── pipeline.py
+│       ├── units.py
+│       ├── logging_setup.py
+│       └── __main__.py
 ├── tests/
-│   └── unit/
+│   ├── unit/
+│   └── integration/
 ├── .gitignore
 ├── pyproject.toml
 ├── LICENSE
