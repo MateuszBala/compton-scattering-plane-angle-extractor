@@ -61,3 +61,27 @@ def test_normalize_format_raises_for_unsupported_value() -> None:
     # Act / Assert
     with pytest.raises(ValueError):
         formats.normalize_format(value)
+
+
+def test_format_from_extension_returns_format_for_known_suffix() -> None:
+    """Znane rozszerzenie zwraca odpowiedni format."""
+    # Arrange
+    path = Path("wynik.hdf5")
+
+    # Act
+    result = formats.format_from_extension(path)
+
+    # Assert
+    assert result == formats.HDF5
+
+
+def test_format_from_extension_returns_none_for_unknown_suffix() -> None:
+    """Nieznane rozszerzenie zwraca None zamiast zgłaszać wyjątek."""
+    # Arrange
+    path = Path("wynik.dat")
+
+    # Act
+    result = formats.format_from_extension(path)
+
+    # Assert
+    assert result is None
