@@ -1,6 +1,6 @@
 # Przykłady
 
-Ten katalog zawiera przykładowe dane i skrypt pokazujący użycie narzędzia.
+Ten katalog zawiera przykładowe dane i skrypty pokazujące użycie narzędzia.
 
 ## Zawartość
 
