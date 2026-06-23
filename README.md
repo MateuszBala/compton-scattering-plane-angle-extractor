@@ -1,11 +1,15 @@
 # compton-scattering-plane-angle-extractor
 
+[![CI](https://github.com/MateuszBala/compton-scattering-plane-angle-extractor/actions/workflows/ci.yaml/badge.svg)](https://github.com/MateuszBala/compton-scattering-plane-angle-extractor/actions/workflows/ci.yaml)
 [![Wersja](https://img.shields.io/badge/wersja-0.0.0-informational)](https://github.com/MateuszBala/python-cspae/releases)
 [![Standard Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)]()
 [![Standard Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)]()
 [![Standard Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)]()
 [![Standard Python](https://img.shields.io/badge/Python-3.14-blue?logo=python&logoColor=white)]()
 [![Licencja](https://img.shields.io/badge/licencja-GPL--3.0-brightgreen)](LICENSE)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
 Maksymalnie prosty i przetestowane narzędzie do wyliczania kąta pomiędzy płaszczynami rozpraszania Comptonowskiego. Stworzone tylko po to by nie podważać wątku "czy jest to dobrze wyliczone"
 
