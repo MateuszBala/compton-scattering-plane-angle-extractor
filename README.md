@@ -11,7 +11,7 @@
 [![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
-Maksymalnie prosty i przetestowane narzędzie do wyliczania kąta pomiędzy płaszczynami rozpraszania Comptonowskiego. Stworzone tylko po to by nie podważać wątku "czy jest to dobrze wyliczone"
+Narzędzie do wyznaczania kątów rozpraszania Comptonowskiego na podstawie wektorów pędu przed i po rozproszeniu: kątów rozpraszania (θ) i azymutalnych (φ) w dwóch płaszczyznach rozpraszania (A i B) oraz kąta pomiędzy tymi płaszczyznami. Obliczenia są w pełni wektoryzowane (NumPy), co pozwala wydajnie przetwarzać duże zbiory zdarzeń, a dane wejściowe i wyniki obsługiwane są w formatach CSV oraz HDF5. Implementacja jest deterministyczna i pokryta testami, stanowiąc jednoznaczny, referencyjny punkt odniesienia dla poprawności tych wyliczeń.
 
 ## Metoda wyznaczania kątów
 
