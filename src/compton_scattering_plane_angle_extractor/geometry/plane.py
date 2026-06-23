@@ -65,4 +65,5 @@ def plane_angle(
     normal_a = plane_normal(initial_a, final_a)
     normal_b = plane_normal(initial_b, final_b)
     cosine = clip_cosine(dot(normal_a, normal_b))
-    return np.arccos(cosine)
+    angle: np.ndarray = np.arccos(cosine)
+    return angle

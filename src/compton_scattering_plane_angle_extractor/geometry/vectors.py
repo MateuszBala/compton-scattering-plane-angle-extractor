@@ -72,7 +72,8 @@ def dot(left: np.ndarray, right: np.ndarray) -> np.ndarray:
     np.ndarray
         Iloczyny skalarne o kształcie ``(N,)``.
     """
-    return np.sum(left * right, axis=-1)
+    products: np.ndarray = np.sum(left * right, axis=-1)
+    return products
 
 
 def cross(left: np.ndarray, right: np.ndarray) -> np.ndarray:

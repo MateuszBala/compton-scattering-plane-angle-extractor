@@ -29,7 +29,8 @@ def rad_to_deg(angles: np.ndarray) -> np.ndarray:
     np.ndarray
         Kąty wyrażone w stopniach.
     """
-    return np.degrees(angles)
+    degrees: np.ndarray = np.degrees(angles)
+    return degrees
 
 
 def wrap_to_two_pi(phi: np.ndarray) -> np.ndarray:

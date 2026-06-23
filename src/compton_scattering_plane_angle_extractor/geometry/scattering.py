@@ -73,7 +73,8 @@ def scattering_angle(initial: np.ndarray, final: np.ndarray) -> np.ndarray:
     initial_unit = normalize(initial)
     final_unit = normalize(final)
     cosine = clip_cosine(dot(initial_unit, final_unit))
-    return np.arccos(cosine)
+    angle: np.ndarray = np.arccos(cosine)
+    return angle
 
 
 def azimuthal_angle(initial: np.ndarray, final: np.ndarray) -> np.ndarray:
