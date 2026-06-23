@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "GPL-3.0-or-later" }
 authors = [{ name = "Mateusz Jakub Bała" }]
-dependencies = ["numpy>=2", "pandas>=2", "h5py>=3"]
+dependencies = ["numpy>=1.26,<3", "pandas>=2", "h5py>=3"]
 
 [project.scripts]
 compton-scattering-plane-angle-extractor = "compton_scattering_plane_angle_extractor.cli:main"

@@ -52,7 +52,11 @@ function main() {
   mkdir -p "$(dirname "${VENV_DIR}")"
   "${PYTHON_BIN}" -m venv "${VENV_DIR}"
   "${VENV_DIR}/bin/python" -m pip install --upgrade pip
-  "${VENV_DIR}/bin/python" -m pip install "${REPO_ROOT}"
+  # Na klastrach (np. CentOS 7 + GCC 8) budowanie numpy/h5py ze źródeł
+  # często kończy się błędem kompilatora. Wymuszamy instalację wheeli.
+  "${VENV_DIR}/bin/python" -m pip install \
+    --only-binary=numpy,pandas,h5py \
+    "${REPO_ROOT}"
   echo "Zainstalowano narzędzie w środowisku: ${VENV_DIR}"
   echo "Uruchom narzędzie poleceniem: bash scripts/extractor.sh --help"
 }
