@@ -46,7 +46,7 @@ All Python code must follow PEP 8 with these specifics:
 
 - Use **4 spaces** per indentation level
 - Never mix tabs and spaces
-- Maximum line length: **88 characters** (Ruff default)
+- Maximum line length: **100 characters** (project Ruff configuration)
 
 ```python
 # Good
@@ -64,7 +64,7 @@ def calculate_scattering_angle(initial_direction, final_direction):
 
 #### Line Length
 
-- Maximum **88 characters** per line
+- Maximum **100 characters** per line
 - Break long lines logically
 - Use implicit line continuation for readability
 
@@ -551,7 +551,7 @@ Create `pyproject.toml` with Ruff settings:
 
 ```toml
 [tool.ruff]
-line-length = 88
+line-length = 100
 target-version = "py311"
 
 [tool.ruff.lint]
@@ -566,7 +566,7 @@ select = [
 ]
 
 [tool.ruff.format]
-line-length = 88
+line-length = 100
 ```
 
 ### Running Ruff
