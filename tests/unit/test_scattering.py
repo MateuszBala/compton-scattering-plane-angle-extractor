@@ -1,8 +1,19 @@
 """Testy jednostkowe kątów rozpraszania i azymutalnych (``geometry.scattering``)."""
 
 import numpy as np
+import pytest
 
 from compton_scattering_plane_angle_extractor.geometry import scattering
+
+
+def test_reference_axis_raises_for_one_dimensional_input() -> None:
+    """Pojedynczy wektor (3,) zgłasza czytelny ValueError zamiast IndexError."""
+    # Arrange
+    initial_unit = np.array([0.0, 0.0, 1.0])
+
+    # Act / Assert
+    with pytest.raises(ValueError):
+        scattering.reference_axis(initial_unit)
 
 
 def test_scattering_angle_perpendicular_is_half_pi() -> None:

@@ -6,6 +6,8 @@ są wykonywane wierszami (bez pętli w Pythonie).
 
 Funkcje publiczne
 -----------------
+ensure_vector_array(array: np.ndarray) -> None
+    Waliduje, że tablica ma kształt ``(N, 3)``.
 normalize(vectors: np.ndarray) -> np.ndarray
     Normalizuje wektory do długości jednostkowej.
 dot(left: np.ndarray, right: np.ndarray) -> np.ndarray
@@ -28,6 +30,30 @@ MIN_NORM: Final[float] = 1e-12
 COS_MIN: Final[float] = -1.0
 COS_MAX: Final[float] = 1.0
 
+# Wymagana liczba składowych wektora (x, y, z).
+VECTOR_DIMENSION: Final[int] = 3
+
+
+def ensure_vector_array(array: np.ndarray) -> None:
+    """Waliduje, że tablica ma kształt ``(N, 3)``.
+
+    Parameters
+    ----------
+    array : np.ndarray
+        Tablica do sprawdzenia.
+
+    Raises
+    ------
+    ValueError
+        Gdy tablica nie jest dwuwymiarowa albo ostatni wymiar nie ma trzech
+        składowych. Zapobiega to niejasnym błędom (np. ``IndexError``) w dalszych
+        obliczeniach przy podaniu pojedynczego wektora o kształcie ``(3,)``.
+    """
+    if array.ndim != 2 or array.shape[1] != VECTOR_DIMENSION:
+        raise ValueError(
+            f"Oczekiwano tablicy wektorów o kształcie (N, 3), otrzymano kształt {array.shape}."
+        )
+
 
 def normalize(vectors: np.ndarray) -> np.ndarray:
     """Normalizuje wektory do długości jednostkowej.
@@ -45,13 +71,15 @@ def normalize(vectors: np.ndarray) -> np.ndarray:
     Raises
     ------
     ValueError
-        Gdy którykolwiek wektor ma normę mniejszą niż :data:`MIN_NORM`.
+        Gdy tablica nie ma kształtu ``(N, 3)`` lub którykolwiek wektor ma normę
+        mniejszą niż :data:`MIN_NORM`.
 
     Examples
     --------
     >>> normalize(np.array([[3.0, 4.0, 0.0]]))
     array([[0.6, 0.8, 0. ]])
     """
+    ensure_vector_array(vectors)
     norms = np.linalg.norm(vectors, axis=-1, keepdims=True)
     if np.any(norms < MIN_NORM):
         raise ValueError("Nie można znormalizować wektora o normie bliskiej zeru.")

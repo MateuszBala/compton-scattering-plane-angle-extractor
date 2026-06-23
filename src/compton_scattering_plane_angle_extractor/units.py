@@ -12,7 +12,7 @@ from typing import Final
 
 import numpy as np
 
-# Pełny kąt pełny w radianach, używany do normalizacji kąta azymutalnego.
+# Pełny kąt (2*pi) w radianach, używany do normalizacji kąta azymutalnego.
 TWO_PI: Final[float] = 2.0 * np.pi
 
 

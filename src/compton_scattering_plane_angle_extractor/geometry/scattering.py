@@ -22,7 +22,7 @@ from typing import Final
 import numpy as np
 
 from ..units import wrap_to_two_pi
-from .vectors import clip_cosine, cross, dot, normalize
+from .vectors import clip_cosine, cross, dot, ensure_vector_array, normalize
 
 # Próg składowej z, powyżej którego oś referencyjna przełącza się z osi Z na X,
 # aby uniknąć degeneracji iloczynu wektorowego dla pędów blisko równoległych do Z.
@@ -48,7 +48,13 @@ def reference_axis(initial_unit: np.ndarray) -> np.ndarray:
     -------
     np.ndarray
         Osie referencyjne o kształcie ``(N, 3)``.
+
+    Raises
+    ------
+    ValueError
+        Gdy ``initial_unit`` nie ma kształtu ``(N, 3)``.
     """
+    ensure_vector_array(initial_unit)
     use_x_axis = np.abs(initial_unit[:, 2]) >= Z_THRESHOLD
     axes = np.broadcast_to(_AXIS_Z, initial_unit.shape).copy()
     axes[use_x_axis] = _AXIS_X

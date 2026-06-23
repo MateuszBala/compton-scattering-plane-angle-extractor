@@ -28,6 +28,38 @@ def test_normalize_raises_for_zero_vector() -> None:
         vectors.normalize(raw)
 
 
+def test_normalize_raises_for_one_dimensional_input() -> None:
+    """Normalizacja pojedynczego wektora (3,) zgłasza ValueError o kształcie."""
+    # Arrange
+    raw = np.array([3.0, 4.0, 0.0])
+
+    # Act / Assert
+    with pytest.raises(ValueError):
+        vectors.normalize(raw)
+
+
+def test_ensure_vector_array_raises_for_wrong_last_dimension() -> None:
+    """Walidacja zgłasza ValueError, gdy ostatni wymiar nie ma 3 składowych."""
+    # Arrange
+    raw = np.array([[1.0, 2.0]])
+
+    # Act / Assert
+    with pytest.raises(ValueError):
+        vectors.ensure_vector_array(raw)
+
+
+def test_ensure_vector_array_accepts_valid_shape() -> None:
+    """Walidacja przepuszcza poprawną tablicę o kształcie (N, 3)."""
+    # Arrange
+    raw = np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
+
+    # Act
+    result = vectors.ensure_vector_array(raw)
+
+    # Assert
+    assert result is None
+
+
 def test_dot_computes_rowwise_scalar_product() -> None:
     """Iloczyn skalarny jest liczony wierszami."""
     # Arrange
