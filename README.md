@@ -1,5 +1,12 @@
 # compton-scattering-plane-angle-extractor
 
+[![Wersja](https://img.shields.io/badge/wersja-0.0.0-informational)](https://github.com/MateuszBala/python-cspae/releases)
+[![Standard Python](https://img.shields.io/badge/C%2B%2B-3.11-blue?logo=python&logoColor=white)]()
+[![Standard Python](https://img.shields.io/badge/C%2B%2B-3.12-blue?logo=python&logoColor=white)]()
+[![Standard Python](https://img.shields.io/badge/C%2B%2B-3.13-blue?logo=python&logoColor=white)]()
+[![Standard Python](https://img.shields.io/badge/C%2B%2B-3.14-blue?logo=python&logoColor=white)]()
+[![Licencja](https://img.shields.io/badge/licencja-GPL--3.0-brightgreen)](LICENSE)
+
 Maksymalnie prosty i przetestowane narzędzie do wyliczania kąta pomiędzy płaszczynami rozpraszania Comptonowskiego. Stworzone tylko po to by nie podważać wątku "czy jest to dobrze wyliczone"
 
 ## Metoda wyznaczania kątów
@@ -148,6 +155,44 @@ Domyślnie kąty są wyrażane w **radianach** [rad], ale użytkownik może usta
 ### Format
 
 Jeśli użytkownik nie ustawi formatu pliku wyjściowego za pomocą komendy `--output-format` to format pliku wyjściowego jest taki sam jak pliku wejściowego.
+
+## Struktura repozytorium
+
+```
+simulator-one-photon-double-compton-scattering/
+├── .github/
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── copilot-instructions.md
+│   ├── debugging-readme-template.md
+│   └── get_review.sh
+├── docs/
+│   ├── imgs/
+│   ├── CODING_CONVENTIONS.md
+│   ├── COMMIT_CONVENTIONS.md
+│   ├── CONTRIBUTION.md
+│   ├── DOCUMENTATION_CONVENTIONS.md
+│   ├── README.md
+│   ├── SCRIPTING_CONVENTIONS.md
+│   └── TESTING_CONVENTIONS.md
+├── examples/
+│   ├── data/
+│   ├── run_csv_file_analysis.sh
+│   └── README.md
+├── scripts/
+│   ├── install.sh
+│   ├── run_tests.sh
+│   ├── extractor.sh
+│   └── README.md
+├── src/
+│   └── compton-scattering-plane-angle-extractor/
+├── tests/
+│   └── unit/
+├── .gitignore
+├── pyproject.toml
+├── LICENSE
+├── README.md
+└── Makefile
+```
 
 ## Licencja
 
