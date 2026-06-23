@@ -1,7 +1,7 @@
 # compton-scattering-plane-angle-extractor
 
 [![CI](https://github.com/MateuszBala/compton-scattering-plane-angle-extractor/actions/workflows/ci.yaml/badge.svg)](https://github.com/MateuszBala/compton-scattering-plane-angle-extractor/actions/workflows/ci.yaml)
-[![Wersja](https://img.shields.io/badge/wersja-0.0.0-informational)](https://github.com/MateuszBala/compton-scattering-plane-angle-extractor/releases)
+[![Wersja](https://img.shields.io/badge/wersja-1.0.0-informational)](https://github.com/MateuszBala/compton-scattering-plane-angle-extractor/releases)
 [![Standard Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)]()
 [![Standard Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)]()
 [![Standard Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)]()

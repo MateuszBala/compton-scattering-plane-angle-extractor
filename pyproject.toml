@@ -1,6 +1,6 @@
 [project]
 name = "compton-scattering-plane-angle-extractor"
-version = "0.0.0"
+version = "1.0.0"
 description = "Program wyliczający kąty rozpraszania w dwóch płaszczyznach rozpraszania A i B oraz kąt pomiędzy tymi płaszczyznami."
 readme = "README.md"
 requires-python = ">=3.11"
